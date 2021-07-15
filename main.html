@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>YOUR MOBILE SCHOOL MESSAGE</title>
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class ="container">
+        
+        <button id="logout" onclick="logout();" class="glyphicon glyphicon-log-out btn btn-danger">LOGOUT</button>
+        <div class="room_name_appear">
+            <h4 id="appear"> </h4>
+
+           
+        
+                </div>
+                <h4 id="display_length_of_array"> 
+                </h4>
+        <center>
+            <h1 class="header">	
+               
+                <sup>
+                    YOUR MOBILE SCHOOL <img src="data:image/jpeg;base64,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">
+            </h1>
+
+              
+            </h1>
+            <div id="output"style="text-align: left;margin-bottom: 70px;"></div>
+        </center>
+        <center>
+            <div class="input_div_message_page">
+                <label>SEND:</label>
+                <input type="text" id="msg" class="form-control" placeholder="MESSAGE">
+        
+                
+                <button onclick="send()" class="btn btn-success">SEND</button>
+            <br>
+            <br>
+            </div>
+            
+        </center>
+      
+        
+        <script src="main.js"></script>
+    </div>
+    </body>
+    </html>
+    
